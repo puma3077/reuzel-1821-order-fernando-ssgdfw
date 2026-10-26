@@ -129,6 +129,15 @@ button,input,textarea{font:inherit;color:inherit}
 @media (max-width:380px){ .bun{grid-template-columns:76px minmax(0,1fr)} .bimg{width:76px;height:76px} }
 
 .deals:has(> .tkt:only-child){grid-auto-columns:100%}
+/* order / education switch under the banner */
+.vtabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:10px;background:var(--surface);border:1px solid var(--line)}
+.vtab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:52px;padding:6px 10px;border:0;border-radius:7px;background:none;color:var(--ink);cursor:pointer;line-height:1.15;-webkit-tap-highlight-color:transparent}
+.vtab b{font-family:var(--display);font-weight:400;font-size:1.2rem;letter-spacing:.04em;text-transform:uppercase}
+.vtab small{font-size:.68rem;font-weight:700;color:var(--muted);letter-spacing:.02em}
+.vtab[aria-selected="true"]{background:var(--pink);color:var(--pink-ink)}
+.vtab[aria-selected="true"] small{color:inherit;opacity:.85}
+.view-order #edu-sec{display:none!important}
+.view-edu .wrap>section:not(#edu-sec){display:none!important}
 /* education: zoom product knowledge + denver academy */
 .edu-intro{margin:-4px 0 0;color:var(--muted);font-size:.84rem;line-height:1.45;max-width:62ch}
 .edu-intro b{color:var(--ink)}
@@ -268,6 +277,10 @@ pre.txt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--rai
 
 <header class="mast" id="mast"></header>
 <main class="wrap">
+  <nav class="vtabs" role="tablist" aria-label="Reuzel sheet">
+    <button class="vtab" role="tab" type="button" id="vt-order" data-view="order" aria-controls="order" aria-selected="true"><b>Order</b><small>Products &amp; deals</small></button>
+    <button class="vtab" role="tab" type="button" id="vt-edu" data-view="edu" aria-controls="edu-sec" aria-selected="false"><b>Education</b><small>Free Zoom · Academy</small></button>
+  </nav>
   <section class="sec" aria-labelledby="h-edu" id="edu-sec">
     <h2 class="sec-h" id="h-edu"><b>Education</b><span>Reuzel U</span></h2>
 
@@ -582,6 +595,17 @@ $("#sh-body").addEventListener("click",e=>{
 });
 
 
+/* order / education switch */
+function setView(v,scroll){
+  v=v==="edu"?"edu":"order";
+  document.body.classList.toggle("view-edu",v==="edu"); document.body.classList.toggle("view-order",v!=="edu");
+  document.querySelectorAll(".vtab").forEach(b=>b.setAttribute("aria-selected",b.dataset.view===v?"true":"false"));
+  if(scroll){ const n=document.querySelector(".vtabs"); if(n&&n.getBoundingClientRect().top<0) n.scrollIntoView(); }
+  if(window.parent===window){ try{history.replaceState(null,"",v==="edu"?"#education":location.pathname+location.search)}catch(e){} }
+}
+document.querySelectorAll(".vtab").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.view,true)));
+setView(location.hash==="#education"?"edu":"order");
+
 /* education: everything drops off after its date */
 const PK27="https://qrco.de/bh4Mlg";
 const ZOOM=[
@@ -683,7 +707,7 @@ document.addEventListener("keydown",e=>{const k=e.target.closest&&e.target.close
   const BR=typeof KIT!=="undefined"?"rz":"mm";
   document.documentElement.classList.add("in-combo");
   const css=document.createElement("style");
-  css.textContent=".in-combo .wrap>section[aria-labelledby=h1],.in-combo #edu-sec,.in-combo .bar,.in-combo #rep,.in-combo #sheet,.in-combo #scrim{display:none!important}.in-combo body{padding-bottom:40px!important}";
+  css.textContent=".in-combo .wrap>section[aria-labelledby=h1],.in-combo .bar,.in-combo #rep,.in-combo #sheet,.in-combo #scrim{display:none!important}.in-combo body{padding-bottom:40px!important}";
   document.head.appendChild(css);
   ["f-salon","f-po","f-name","f-notes","f-rw"].forEach(id=>{const el=document.getElementById(id); if(el) el.value="";});
 
@@ -712,6 +736,7 @@ document.addEventListener("keydown",e=>{const k=e.target.closest&&e.target.close
     if(e.source!==window.parent||!e.data) return;
     const m=e.data;
     if(m.type==="hello") push(true);
+    if(m.type==="view") setView(m.v,true);
     if(m.type==="qty"&&typeof m.c==="string") setQty(m.c,m.n);
     if(m.type==="goto"){ const t=document.getElementById(m.id); if(t) t.scrollIntoView(); }
     if(m.type==="clear"){
