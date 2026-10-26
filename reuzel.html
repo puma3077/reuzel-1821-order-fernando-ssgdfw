@@ -129,9 +129,12 @@ button,input,textarea{font:inherit;color:inherit}
 @media (max-width:380px){ .bun{grid-template-columns:76px minmax(0,1fr)} .bimg{width:76px;height:76px} }
 
 .deals:has(> .tkt:only-child){grid-auto-columns:100%}
-/* free zoom education */
+/* education: zoom product knowledge + denver academy */
 .edu-intro{margin:-4px 0 0;color:var(--muted);font-size:.84rem;line-height:1.45;max-width:62ch}
 .edu-intro b{color:var(--ink)}
+.sub-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:6px 0 0;padding-bottom:6px;border-bottom:2px solid var(--pink)}
+.sub-h b{min-width:0;font-family:var(--display);font-weight:400;font-size:clamp(1.05rem,4.6vw,1.25rem);letter-spacing:.02em;text-transform:uppercase}
+.sub-h span{flex:none;font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--pink)}
 .edu{display:flex;flex-direction:column;gap:10px}
 .ses{display:grid;grid-template-columns:64px minmax(0,1fr);gap:4px 14px;align-items:center;padding:12px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
 .ses .dt{grid-row:span 2;align-self:start;display:flex;flex-direction:column;align-items:center;justify-content:center;width:64px;height:72px;border-radius:4px;background:var(--pink);color:var(--pink-ink);line-height:1;text-transform:uppercase}
@@ -141,8 +144,28 @@ button,input,textarea{font:inherit;color:inherit}
 .ses .t span{font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--pink)}
 .ses .t b{display:block;font-size:.98rem;font-weight:800;line-height:1.2;margin-top:2px}
 .ses .t p{margin:3px 0 0;font-size:.78rem;color:var(--muted);line-height:1.35;font-variant-numeric:tabular-nums}
-.ses .rg{justify-self:start;display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;border:1.5px solid var(--ink);color:var(--ink);font-weight:800;font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}
-.edu-note{margin:0;font-size:.78rem;color:var(--muted)}
+.rg{justify-self:start;display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 16px;border-radius:999px;border:1.5px solid var(--ink);color:var(--ink);font-weight:800;font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+.rg.pri{background:var(--pink);border-color:var(--pink);color:var(--pink-ink)}
+.all{border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.all summary{cursor:pointer;padding:13px 14px;font-weight:800;font-size:.86rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.all summary::-webkit-details-marker{display:none}
+.all summary::after{content:"+";font-size:1.2rem;color:var(--pink);line-height:1}
+.all[open] summary::after{content:"−"}
+.all-in{padding:0 14px 14px;display:grid;gap:14px}
+.lang b{display:block;font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{padding:5px 10px;border-radius:999px;background:var(--raised);border:1px solid var(--line);font-size:.78rem;font-weight:700;font-variant-numeric:tabular-nums}
+.acad{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:6px;background:var(--surface);overflow:hidden}
+.cls{display:grid;grid-template-columns:92px minmax(0,1fr) auto;gap:2px 12px;align-items:center;padding:11px 12px;border-bottom:1px solid var(--line)}
+.cls:last-child{border-bottom:0}
+.cls .when{font-size:.78rem;font-weight:800;line-height:1.25;font-variant-numeric:tabular-nums}
+.cls .when small{display:block;font-weight:600;color:var(--muted);font-size:.68rem}
+.cls .nm{min-width:0;font-weight:700;font-size:.9rem;line-height:1.25}
+.cls .nm small .tag{margin-left:8px;font-family:var(--body);vertical-align:2px}
+.cls .nm small{display:block;font-family:var(--display);font-weight:400;font-size:1.1rem;color:var(--pink);letter-spacing:.01em}
+.cls .rg{min-height:36px;padding:0 12px;font-size:.68rem}
+@media (max-width:380px){ .cls{grid-template-columns:78px minmax(0,1fr)} .cls .rg{grid-column:2;justify-self:start;margin-top:4px} }
+.edu-note{margin:0;font-size:.78rem;color:var(--muted);line-height:1.45}
 .edu-note .sel{user-select:all;font-family:var(--mono);color:var(--ink)}
 /* marketing downloads */
 .mk-intro{margin:-4px 0 0;color:var(--muted);font-size:.84rem;line-height:1.45;max-width:60ch}
@@ -286,10 +309,22 @@ pre.txt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--rai
   </section>
 
   <section class="sec" aria-labelledby="h-edu" id="edu-sec">
-    <h2 class="sec-h" id="h-edu"><b>Free education</b><span>Reuzel U on Zoom</span></h2>
-    <p class="edu-intro"><b>Zoom Product Knowledge 2026.</b> Free of charge and open to everyone in your salon. Mondays at 12 PM Eastern / 11 AM Central. Registration links are coming soon, so email Reuzel U to save a spot.</p>
-    <div class="edu" id="edu"></div>
-    <p class="edu-note">Questions or registration: <span class="sel">Reuzelu@reuzel.com</span></p>
+    <h2 class="sec-h" id="h-edu"><b>Education</b><span>Reuzel U</span></h2>
+
+    <div id="zoom-wrap" class="sec" style="gap:12px">
+      <h3 class="sub-h"><b>Zoom Product Knowledge</b><span>Free</span></h3>
+      <p class="edu-intro"><b>Free and open to everyone in your salon.</b> Mondays at 12 PM Eastern / 11 AM Central, in English and Spanish. Sign up once for the 2027 series.</p>
+      <div class="edu" id="edu"></div>
+      <details class="all" id="edu-all"><summary id="edu-all-s">All Zoom dates</summary><div class="all-in" id="edu-list"></div></details>
+    </div>
+
+    <div id="acad-wrap" class="sec" style="gap:12px">
+      <h3 class="sub-h"><b>Denver Academy</b><span>2026–27 · Hands-on</span></h3>
+      <p class="edu-intro"><b>Two-day barbering classes at the Reuzel Academy in Denver.</b> Your quarterly Reuzel Rewards can go toward Academy tickets. Tap a class and I'll help you book it.</p>
+      <div class="acad" id="acad"></div>
+    </div>
+
+    <p class="edu-note">Zoom questions: <span class="sel">Reuzelu@reuzel.com</span> · Academy booking: text Fernando at <span class="sel">817.881.6272</span></p>
   </section>
 
   <section class="sec" aria-labelledby="h-mk">
@@ -547,21 +582,59 @@ $("#sh-body").addEventListener("click",e=>{
 });
 
 
-/* free zoom education: sessions drop off after their date */
-const EDU=[
- {d:"2026-11-09",lang:"English",title:"Product Knowledge on Zoom",btn:"Email to register",subj:"Zoom Product Knowledge – Monday, November 9 (English)"},
- {d:"2026-11-30",lang:"Español",title:"Product Knowledge en Zoom",btn:"Inscribirse por email",subj:"Zoom Product Knowledge en español – lunes 30 de noviembre"},
- {d:"2026-12-14",lang:"English",title:"Product Knowledge on Zoom",btn:"Email to register",subj:"Zoom Product Knowledge – Monday, December 14 (English)"}];
+/* education: everything drops off after its date */
+const PK27="https://qrco.de/bh4Mlg";
+const ZOOM=[
+ ...["2026-11-09","2026-12-14"].map(d=>({d,es:0})),
+ {d:"2026-11-30",es:1},
+ ...["2027-01-11","2027-02-15","2027-03-15","2027-04-19","2027-05-17","2027-06-14","2027-07-19","2027-08-16","2027-09-13","2027-10-18","2027-11-15","2027-12-13"].map(d=>({d,es:0})),
+ ...["2027-03-01","2027-05-10","2027-07-19","2027-10-04"].map(d=>({d,es:1}))];
+const ACAD=[
+ ["2026-12-06","2026-12-07","Classics",475],["2027-01-24","2027-01-25","Classics",475],["2027-02-21","2027-02-22","The Low Down",550],
+ ["2027-03-14","2027-03-15","Classic Foundations, Modern Expressions",475,1],["2027-04-04","2027-04-05","Classics II",475],
+ ["2027-05-23","2027-05-24","Modern Classics",550],["2027-06-13","2027-06-14","Classics w/ Beard",550],["2027-07-11","2027-07-12","Classics II",475],
+ ["2027-08-01","2027-08-02","Classic Foundations, Modern Expressions",475,1],["2027-08-29","2027-08-30","Classics",475],
+ ["2027-09-19","2027-09-20","Classics II",475],["2027-10-10","2027-10-12","Clipper Carnage",550],["2027-11-07","2027-11-08","Classics",475]];
 (function(){
+  const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], DAY=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  const day=s=>{const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
   const today=new Date(); today.setHours(0,0,0,0);
-  const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  const up=EDU.filter(x=>{const [y,m,d]=x.d.split("-").map(Number);x.dt=new Date(y,m-1,d);return x.dt>=today});
-  if(!up.length){ $("#edu-sec").hidden=true; return; }
-  $("#edu").innerHTML=up.map(x=>`<div class="ses">
-    <div class="dt" aria-hidden="true"><small>Mon</small><b>${x.dt.getDate()}</b><small>${MON[x.dt.getMonth()]}</small></div>
-    <div class="t"><span>${esc(x.lang)} · Free</span><b>${esc(x.title)}</b><p>Monday, ${MON[x.dt.getMonth()]} ${x.dt.getDate()} · 12 PM ET / 11 AM CT</p></div>
-    <a class="rg" href="mailto:Reuzelu@reuzel.com?subject=${encodeURIComponent(x.subj)}">${esc(x.btn)}</a>
-  </div>`).join("");
+  const md=t=>`${MON[t.getMonth()]} ${t.getDate()}`;
+
+  /* zoom */
+  const up=ZOOM.map(x=>({...x,dt:day(x.d)})).filter(x=>x.dt>=today).sort((a,b)=>a.dt-b.dt||a.es-b.es);
+  if(!up.length) $("#zoom-wrap").hidden=true;
+  else{
+    const reg=x=>x.dt.getFullYear()>=2027
+      ?`<a class="rg pri" href="${PK27}" target="_blank" rel="noopener">${x.es?"Inscribirse":"Sign up"}</a>`
+      :`<a class="rg" href="mailto:Reuzelu@reuzel.com?subject=${encodeURIComponent(x.es?`Zoom Product Knowledge en español – ${md(x.dt)}`:`Zoom Product Knowledge – ${md(x.dt)} (English)`)}">${x.es?"Inscribirse por email":"Email to register"}</a>`;
+    $("#edu").innerHTML=up.slice(0,3).map(x=>`<div class="ses">
+      <div class="dt" aria-hidden="true"><small>Mon</small><b>${x.dt.getDate()}</b><small>${MON[x.dt.getMonth()]}</small></div>
+      <div class="t"><span>${x.es?"Español":"English"} · Free · ${x.dt.getFullYear()}</span><b>${x.es?"Product Knowledge en Zoom":"Product Knowledge on Zoom"}</b><p>Monday, ${md(x.dt)} · 12 PM ET / 11 AM CT</p></div>
+      ${reg(x)}</div>`).join("");
+    const rest=up.slice(3);
+    if(!rest.length) $("#edu-all").hidden=true;
+    else{
+      $("#edu-all-s").textContent=`All Zoom dates (${rest.length} more)`;
+      const grp=(es,yr)=>rest.filter(x=>x.es===es&&x.dt.getFullYear()===yr);
+      let h="";
+      for(const yr of [...new Set(rest.map(x=>x.dt.getFullYear()))])
+        for(const es of [0,1]){ const g=grp(es,yr); if(!g.length) continue;
+          h+=`<div class="lang"><b>${es?"Español":"English"} · ${yr}</b><div class="chips">${g.map(x=>`<span>${md(x.dt)}</span>`).join("")}</div></div>`; }
+      h+=`<a class="rg pri" href="${PK27}" target="_blank" rel="noopener">2027 Zoom sign-up</a>`;
+      $("#edu-list").innerHTML=h;
+    }
+  }
+
+  /* denver academy */
+  const cls=ACAD.map(([a,b,n,p,nw])=>({a:day(a),b:day(b),n,p,nw})).filter(x=>x.b>=today);
+  if(!cls.length) $("#acad-wrap").hidden=true;
+  else $("#acad").innerHTML=cls.map(x=>{
+    const range=x.a.getMonth()===x.b.getMonth()?`${md(x.a)}–${x.b.getDate()}`:`${md(x.a)}–${md(x.b)}`;
+    const msg=`Hi Fernando, I'm interested in the Reuzel Denver Academy class ${x.n}, ${range}, ${x.a.getFullYear()}.`;
+    return `<div class="cls"><div class="when">${range}<small>${DAY[x.a.getDay()]}–${DAY[x.b.getDay()]} · ${x.a.getFullYear()}</small></div>
+      <div class="nm">${esc(x.n)}<small>$${x.p}${x.nw?`<span class="tag new">New</span>`:""}</small></div>
+      <a class="rg" href="sms:8178816272?&body=${encodeURIComponent(msg)}">Ask to book</a></div>`;}).join("");
 })();
 
 /* marketing downloads */
