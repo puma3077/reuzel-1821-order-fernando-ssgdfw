@@ -483,7 +483,7 @@ renderCat(); renderPills(); renderBar(); renderDeals(); renderRewards();
   const BR=typeof KIT!=="undefined"?"rz":"mm";
   document.documentElement.classList.add("in-combo");
   const css=document.createElement("style");
-  css.textContent=".in-combo .wrap>section:first-child,.in-combo .bar,.in-combo #rep,.in-combo #sheet,.in-combo #scrim{display:none!important}.in-combo body{padding-bottom:40px!important}";
+  css.textContent=".in-combo .wrap>section[aria-labelledby=h1],.in-combo .bar,.in-combo #rep,.in-combo #sheet,.in-combo #scrim{display:none!important}.in-combo body{padding-bottom:40px!important}";
   document.head.appendChild(css);
   ["f-salon","f-po","f-name","f-notes","f-rw"].forEach(id=>{const el=document.getElementById(id); if(el) el.value="";});
 

@@ -268,6 +268,25 @@ pre.txt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--rai
 
 <header class="mast" id="mast"></header>
 <main class="wrap">
+  <section class="sec" aria-labelledby="h-edu" id="edu-sec">
+    <h2 class="sec-h" id="h-edu"><b>Education</b><span>Reuzel U</span></h2>
+
+    <div id="zoom-wrap" class="sec" style="gap:12px">
+      <h3 class="sub-h"><b>Zoom Product Knowledge</b><span>Free</span></h3>
+      <p class="edu-intro"><b>Free and open to everyone in your salon.</b> Mondays at 12 PM Eastern / 11 AM Central, in English and Spanish. Sign up once for the 2027 series.</p>
+      <div class="edu" id="edu"></div>
+      <details class="all" id="edu-all"><summary id="edu-all-s">All Zoom dates</summary><div class="all-in" id="edu-list"></div></details>
+    </div>
+
+    <div id="acad-wrap" class="sec" style="gap:12px">
+      <h3 class="sub-h"><b>Denver Academy</b><span>2026–27 · Hands-on</span></h3>
+      <p class="edu-intro"><b>Two-day barbering classes at the Reuzel Academy in Denver.</b> Your quarterly Reuzel Rewards can go toward Academy tickets. Tap a class and I'll help you book it.</p>
+      <div class="acad" id="acad"></div>
+    </div>
+
+    <p class="edu-note">Zoom questions: <span class="sel">Reuzelu@reuzel.com</span> · Academy booking: text Fernando at <span class="sel">817.881.6272</span></p>
+  </section>
+
   <section class="sec" aria-labelledby="h1">
     <h2 class="sec-h" id="h1"><b>Who's ordering</b><span>Saved on this phone</span></h2>
     <div class="panel">
@@ -306,25 +325,6 @@ pre.txt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--rai
       </div>
       <div id="cat"></div>
     </div>
-  </section>
-
-  <section class="sec" aria-labelledby="h-edu" id="edu-sec">
-    <h2 class="sec-h" id="h-edu"><b>Education</b><span>Reuzel U</span></h2>
-
-    <div id="zoom-wrap" class="sec" style="gap:12px">
-      <h3 class="sub-h"><b>Zoom Product Knowledge</b><span>Free</span></h3>
-      <p class="edu-intro"><b>Free and open to everyone in your salon.</b> Mondays at 12 PM Eastern / 11 AM Central, in English and Spanish. Sign up once for the 2027 series.</p>
-      <div class="edu" id="edu"></div>
-      <details class="all" id="edu-all"><summary id="edu-all-s">All Zoom dates</summary><div class="all-in" id="edu-list"></div></details>
-    </div>
-
-    <div id="acad-wrap" class="sec" style="gap:12px">
-      <h3 class="sub-h"><b>Denver Academy</b><span>2026–27 · Hands-on</span></h3>
-      <p class="edu-intro"><b>Two-day barbering classes at the Reuzel Academy in Denver.</b> Your quarterly Reuzel Rewards can go toward Academy tickets. Tap a class and I'll help you book it.</p>
-      <div class="acad" id="acad"></div>
-    </div>
-
-    <p class="edu-note">Zoom questions: <span class="sel">Reuzelu@reuzel.com</span> · Academy booking: text Fernando at <span class="sel">817.881.6272</span></p>
   </section>
 
   <section class="sec" aria-labelledby="h-mk">
@@ -683,7 +683,7 @@ document.addEventListener("keydown",e=>{const k=e.target.closest&&e.target.close
   const BR=typeof KIT!=="undefined"?"rz":"mm";
   document.documentElement.classList.add("in-combo");
   const css=document.createElement("style");
-  css.textContent=".in-combo .wrap>section:first-child,.in-combo .bar,.in-combo #rep,.in-combo #sheet,.in-combo #scrim{display:none!important}.in-combo body{padding-bottom:40px!important}";
+  css.textContent=".in-combo .wrap>section[aria-labelledby=h1],.in-combo #edu-sec,.in-combo .bar,.in-combo #rep,.in-combo #sheet,.in-combo #scrim{display:none!important}.in-combo body{padding-bottom:40px!important}";
   document.head.appendChild(css);
   ["f-salon","f-po","f-name","f-notes","f-rw"].forEach(id=>{const el=document.getElementById(id); if(el) el.value="";});
 

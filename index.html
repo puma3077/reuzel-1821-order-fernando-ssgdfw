@@ -47,7 +47,7 @@ button,input,textarea{font:inherit;color:inherit}
 .lock .mm small{font-size:.62em;letter-spacing:.02em}
 .lock .by{margin-left:auto;text-align:right;font-size:.62rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);line-height:1.3}
 @media (max-width:420px){ .lock .by{display:none} }
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.tabs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,.8fr);gap:6px}
 .tab{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:46px;padding:6px 12px;border-radius:6px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;text-align:left}
 .tab .nm{display:flex;flex-direction:column;line-height:1.15;min-width:0}
 .tab .nm b{font-size:.9rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
@@ -55,6 +55,11 @@ button,input,textarea{font:inherit;color:inherit}
 .tab .n{min-width:24px;height:24px;border-radius:12px;padding:0 7px;display:grid;place-items:center;font-size:.76rem;font-weight:800;background:var(--raised);color:var(--muted);font-variant-numeric:tabular-nums}
 .tab[data-b="rz"][aria-selected="true"]{border-color:var(--rz);background:var(--rz);color:var(--rz-ink)}
 .tab[data-b="mm"][aria-selected="true"]{border-color:var(--mm);background:var(--mm);color:var(--mm-ink)}
+.tab[data-b="ed"]{border-style:dashed;border-color:var(--rz)}
+.tab[data-b="ed"] .ic{flex:none;width:20px;height:20px;stroke:var(--rz);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tab[data-b="ed"][aria-selected="true"]{border-style:solid;background:var(--ink);border-color:var(--ink);color:var(--ground)}
+.tab[data-b="ed"][aria-selected="true"] .ic{stroke:var(--rz)}
+@media (max-width:440px){ .tabs{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1fr);gap:5px} .tab{padding:6px 8px;gap:6px} .tab .nm small{display:none} .tab .nm b{font-size:.78rem;letter-spacing:.01em} .tab[data-b="ed"]{justify-content:center} .tab[data-b="ed"] .ic{display:none} }
 .tab[aria-selected="true"] .nm small{color:inherit;opacity:.8}
 .tab[aria-selected="true"] .n{background:rgba(0,0,0,.18);color:inherit}
 
@@ -139,6 +144,7 @@ button,input,textarea{font:inherit;color:inherit}
     <div class="tabs" role="tablist" aria-label="Brand">
       <button class="tab" role="tab" id="tab-rz" data-b="rz" aria-controls="fr-rz" aria-selected="true" type="button"><span class="nm"><b>Reuzel</b><small id="ts-rz">Pomades, tonics, beard</small></span><span class="n" id="tn-rz">0</span></button>
       <button class="tab" role="tab" id="tab-mm" data-b="mm" aria-controls="fr-mm" aria-selected="false" type="button"><span class="nm"><b>18.21 Man Made</b><small id="ts-mm">Wash, styling, spirits</small></span><span class="n" id="tn-mm">0</span></button>
+      <button class="tab" role="tab" id="tab-ed" data-b="ed" aria-controls="fr-ed" aria-selected="false" type="button"><span class="nm"><b>Education</b><small>Free Zoom · Academy</small></span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5"/></svg></button>
     </div>
   </div>
 </header>
@@ -146,6 +152,7 @@ button,input,textarea{font:inherit;color:inherit}
 <main class="frames">
   <iframe id="fr-rz" src="reuzel.html" title="Reuzel products" role="tabpanel" aria-labelledby="tab-rz"></iframe>
   <iframe id="fr-mm" src="1821.html" title="18.21 Man Made products" role="tabpanel" aria-labelledby="tab-mm" hidden></iframe>
+  <iframe id="fr-ed" src="education.html" title="Reuzel education" role="tabpanel" aria-labelledby="tab-ed" hidden loading="lazy"></iframe>
 </main>
 
 <div class="bar" role="region" aria-label="Order total">
@@ -188,16 +195,16 @@ const esc=s=>String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"
 const money=n=>"$"+n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
 const st={get(k){try{return JSON.parse(localStorage.getItem("combo-"+k))}catch(e){return null}},set(k,v){try{localStorage.setItem("combo-"+k,JSON.stringify(v))}catch(e){}}};
 const S={rz:{u:0,p:0,est:0,rows:[],kit:null,text:""},mm:{u:0,p:0,est:0,rows:[],kit:null,text:""}};
-const FR={rz:$("#fr-rz"),mm:$("#fr-mm")};
+const FR={rz:$("#fr-rz"),mm:$("#fr-mm"),ed:$("#fr-ed")};
 const send=(b,m)=>{try{FR[b].contentWindow.postMessage(m,"*")}catch(e){}};
 
 /* tabs */
 function show(b){
-  for(const k of ["rz","mm"]){ FR[k].hidden=k!==b; $("#tab-"+k).setAttribute("aria-selected",k===b?"true":"false"); }
-  st.set("tab",b); try{history.replaceState(null,"","#"+(b==="mm"?"manmade":"reuzel"))}catch(e){}
+  for(const k of ["rz","mm","ed"]){ FR[k].hidden=k!==b; $("#tab-"+k).setAttribute("aria-selected",k===b?"true":"false"); }
+  st.set("tab",b); try{history.replaceState(null,"","#"+({mm:"manmade",ed:"education"}[b]||"reuzel"))}catch(e){}
 }
 document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>show(t.dataset.b)));
-show(location.hash==="#manmade"?"mm":location.hash==="#reuzel"?"rz":(st.get("tab")||"rz"));
+show({"#manmade":"mm","#reuzel":"rz","#education":"ed"}[location.hash]||(["rz","mm","ed"].includes(st.get("tab"))?st.get("tab"):"rz"));
 
 /* shared fields */
 const saved=st.get("fields")||{};
