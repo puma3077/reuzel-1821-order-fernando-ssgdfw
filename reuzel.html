@@ -129,6 +129,21 @@ button,input,textarea{font:inherit;color:inherit}
 @media (max-width:380px){ .bun{grid-template-columns:76px minmax(0,1fr)} .bimg{width:76px;height:76px} }
 
 .deals:has(> .tkt:only-child){grid-auto-columns:100%}
+/* free zoom education */
+.edu-intro{margin:-4px 0 0;color:var(--muted);font-size:.84rem;line-height:1.45;max-width:62ch}
+.edu-intro b{color:var(--ink)}
+.edu{display:flex;flex-direction:column;gap:10px}
+.ses{display:grid;grid-template-columns:64px minmax(0,1fr);gap:4px 14px;align-items:center;padding:12px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.ses .dt{grid-row:span 2;align-self:start;display:flex;flex-direction:column;align-items:center;justify-content:center;width:64px;height:72px;border-radius:4px;background:var(--pink);color:var(--pink-ink);line-height:1;text-transform:uppercase}
+.ses .dt small{font-size:.6rem;font-weight:800;letter-spacing:.14em}
+.ses .dt b{font-family:var(--display);font-weight:400;font-size:2rem;letter-spacing:.01em;margin:2px 0}
+.ses .t{min-width:0}
+.ses .t span{font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--pink)}
+.ses .t b{display:block;font-size:.98rem;font-weight:800;line-height:1.2;margin-top:2px}
+.ses .t p{margin:3px 0 0;font-size:.78rem;color:var(--muted);line-height:1.35;font-variant-numeric:tabular-nums}
+.ses .rg{justify-self:start;display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;border:1.5px solid var(--ink);color:var(--ink);font-weight:800;font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}
+.edu-note{margin:0;font-size:.78rem;color:var(--muted)}
+.edu-note .sel{user-select:all;font-family:var(--mono);color:var(--ink)}
 /* marketing downloads */
 .mk-intro{margin:-4px 0 0;color:var(--muted);font-size:.84rem;line-height:1.45;max-width:60ch}
 .mk{display:flex;flex-direction:column;gap:10px}
@@ -268,6 +283,13 @@ pre.txt{margin:0;white-space:pre-wrap;word-break:break-word;background:var(--rai
       </div>
       <div id="cat"></div>
     </div>
+  </section>
+
+  <section class="sec" aria-labelledby="h-edu" id="edu-sec">
+    <h2 class="sec-h" id="h-edu"><b>Free education</b><span>Reuzel U on Zoom</span></h2>
+    <p class="edu-intro"><b>Zoom Product Knowledge 2026.</b> Free of charge and open to everyone in your salon. Mondays at 12 PM Eastern / 11 AM Central. Registration links are coming soon, so email Reuzel U to save a spot.</p>
+    <div class="edu" id="edu"></div>
+    <p class="edu-note">Questions or registration: <span class="sel">Reuzelu@reuzel.com</span></p>
   </section>
 
   <section class="sec" aria-labelledby="h-mk">
@@ -525,6 +547,23 @@ $("#sh-body").addEventListener("click",e=>{
 });
 
 
+/* free zoom education: sessions drop off after their date */
+const EDU=[
+ {d:"2026-11-09",lang:"English",title:"Product Knowledge on Zoom",btn:"Email to register",subj:"Zoom Product Knowledge – Monday, November 9 (English)"},
+ {d:"2026-11-30",lang:"Español",title:"Product Knowledge en Zoom",btn:"Inscribirse por email",subj:"Zoom Product Knowledge en español – lunes 30 de noviembre"},
+ {d:"2026-12-14",lang:"English",title:"Product Knowledge on Zoom",btn:"Email to register",subj:"Zoom Product Knowledge – Monday, December 14 (English)"}];
+(function(){
+  const today=new Date(); today.setHours(0,0,0,0);
+  const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const up=EDU.filter(x=>{const [y,m,d]=x.d.split("-").map(Number);x.dt=new Date(y,m-1,d);return x.dt>=today});
+  if(!up.length){ $("#edu-sec").hidden=true; return; }
+  $("#edu").innerHTML=up.map(x=>`<div class="ses">
+    <div class="dt" aria-hidden="true"><small>Mon</small><b>${x.dt.getDate()}</b><small>${MON[x.dt.getMonth()]}</small></div>
+    <div class="t"><span>${esc(x.lang)} · Free</span><b>${esc(x.title)}</b><p>Monday, ${MON[x.dt.getMonth()]} ${x.dt.getDate()} · 12 PM ET / 11 AM CT</p></div>
+    <a class="rg" href="mailto:Reuzelu@reuzel.com?subject=${encodeURIComponent(x.subj)}">${esc(x.btn)}</a>
+  </div>`).join("");
+})();
+
 /* marketing downloads */
 const MK=[
  {m:"October",file:"Reuzel-Partner-Edit-October-2026.pdf",kb:640,d:"Prep & Volume social posts and banners, back-bar stock-up graphics, and new Wood & Spice Beard Balm assets."},
@@ -550,6 +589,19 @@ renderHol(); renderBun(); renderCat(); renderPills(); renderDeals(); renderBar()
 document.addEventListener("keydown",e=>{const k=e.target.closest&&e.target.closest("[data-kt]");if(k&&(e.key==="Enter"||e.key===" ")&&!e.target.closest("button")){e.preventDefault();kpickTap(k.dataset.kt)}});
 </script>
 
+<style id="tablet-fit">
+/* Tablet fit (iPad and up): wider page, shorter photo header, two-column product lists, 3-up deals */
+@media (min-width:768px){
+  .wrap{max-width:1040px}
+  .mast{height:clamp(300px,40vw,430px)}
+  .mast-tx{max-width:1072px}
+  #cat .line{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:36px;align-items:start}
+  #cat .line>:not(.prod){grid-column:1/-1}
+  .deals{grid-auto-columns:minmax(260px,calc(33.333% - 14px))}
+  .buns,.mk,.edu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+  .kgrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+</style>
 <script>
 /* Combined-sheet bridge: when this page runs inside the Reuzel + 18.21 sheet, hide its own
    contact/total/review pieces and report the cart to the parent page. */

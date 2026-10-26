@@ -462,6 +462,19 @@ $("#sh-body").addEventListener("click",e=>{
 renderCat(); renderPills(); renderBar(); renderDeals(); renderRewards();
 </script>
 
+<style id="tablet-fit">
+/* Tablet fit (iPad and up): wider page, shorter photo header, two-column product lists, 3-up deals */
+@media (min-width:768px){
+  .wrap{max-width:1040px}
+  .mast{height:clamp(300px,40vw,430px)}
+  .mast-tx{max-width:1072px}
+  #cat .line{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:36px;align-items:start}
+  #cat .line>:not(.prod){grid-column:1/-1}
+  .deals{grid-auto-columns:minmax(260px,calc(33.333% - 14px))}
+  .buns,.mk{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+  .kgrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+</style>
 <script>
 /* Combined-sheet bridge: when this page runs inside the Reuzel + 18.21 sheet, hide its own
    contact/total/review pieces and report the cart to the parent page. */

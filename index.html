@@ -1,4 +1,12 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Reuzel 18.21">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#141112">
+</head><body>
 <title>Reuzel + 18.21 Order Sheet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Rye&family=Archivo:wght@400;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap">
@@ -109,6 +117,17 @@ button,input,textarea{font:inherit;color:inherit}
 .rep .sel{user-select:all;font-family:var(--mono);color:var(--ink)}
 .empty{color:var(--muted);margin:0}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(90px + env(safe-area-inset-bottom,0px));z-index:30;background:var(--ink);color:var(--ground);padding:10px 16px;border-radius:999px;font-weight:700;font-size:.86rem}
+
+/* home-screen app + tablet fit: the till bar handles the bottom safe area itself; content widens on tablets */
+:root{padding-top:0!important;padding-bottom:0!important}
+.top{padding-top:env(safe-area-inset-top,0px)}
+@media (min-width:768px){
+  .top-in,.bar-in{max-width:1040px}
+  .top-in{flex-direction:row;align-items:center;gap:20px}
+  .lock{flex:none}
+  .lock .by{display:none}
+  .tabs{flex:1}
+}
 </style>
 
 <header class="top">

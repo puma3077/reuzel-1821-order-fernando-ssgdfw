@@ -1,0 +1,15 @@
+{
+  "name": "Reuzel + 18.21 Order Sheet",
+  "short_name": "Reuzel 18.21",
+  "description": "Salon order sheet for Reuzel and 18.21 Man Made · Salon Service Group",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#141112",
+  "theme_color": "#141112",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png"}
+  ]
+}
